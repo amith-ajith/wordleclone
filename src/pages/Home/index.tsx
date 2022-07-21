@@ -12,7 +12,7 @@ const Home: React.FC = () => {
 
   const [word, setWord] = useState('')
   const [currInput, setCurrInput] = useState('')
-  const [attemptno, setAttemptNo] = useState(0)
+  const [currattempt, setAttemptNo] = useState(0)
   const [inputs, setInputs] = useState(['','','','','',''])
   
   useEffect(() => {
@@ -22,15 +22,14 @@ const Home: React.FC = () => {
 
   const onKeyPress= (event: KeyboardEvent) =>{
     event.preventDefault()
-    console.log(event.key)
 
-    if(attemptno <= 5){
+    if(currattempt <= 5){
       
       if(event.code === 'Enter'){
       
         if(currInput.length === 5){
           setCurrInput('')
-          setAttemptNo(attemptno+1)
+          setAttemptNo(currattempt+1)
         }
         return      
       }
@@ -39,17 +38,17 @@ const Home: React.FC = () => {
         setCurrInput(currInput.substring(0,currInput.length-1))
         setInputs(prevState =>{
           var newState = prevState
-          newState[attemptno] = newState[attemptno].substring(0,newState[attemptno].length-1)
+          newState[currattempt] = newState[currattempt].substring(0,newState[currattempt].length-1)
           return newState
         })
       }
   
       if((/[a-zA-Z]/.test(event.key)) && (event.key.split('').length === 1)){
         if(currInput.split('').length <5){
-          setCurrInput(prevState => (prevState+=event.key))
+          setCurrInput(prevState => (prevState+=event.key.toUpperCase()))
           setInputs(prevState =>{
             var newState = prevState
-            newState[attemptno] = newState[attemptno]+=event.key
+            newState[currattempt] = newState[currattempt]+=event.key.toUpperCase()
             return newState
           })
         }
@@ -78,14 +77,13 @@ const Home: React.FC = () => {
  
 
 
-  console.log('curren input',currInput, currInput.length)
-
   return (
     <div className="home">
+      {word}
       <div className="wrapper">
 
         {inputs.map((input,i) => {
-          return(<Attempt key={i} input={input} attemptno={attemptno}/>)
+          return(<Attempt key={i} input={input} word={word} currattempt={currattempt} attemptno ={i}/>)
         })}
 
         
