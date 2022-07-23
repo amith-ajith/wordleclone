@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/wordleclone%20/static/css/main.25edf931.css",
+    "main.js": "/wordleclone%20/static/js/main.b0f56088.js",
+    "static/js/787.3c1be663.chunk.js": "/wordleclone%20/static/js/787.3c1be663.chunk.js",
+    "index.html": "/wordleclone%20/index.html",
+    "main.25edf931.css.map": "/wordleclone%20/static/css/main.25edf931.css.map",
+    "main.b0f56088.js.map": "/wordleclone%20/static/js/main.b0f56088.js.map",
+    "787.3c1be663.chunk.js.map": "/wordleclone%20/static/js/787.3c1be663.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.25edf931.css",
+    "static/js/main.b0f56088.js"
+  ]
+}
