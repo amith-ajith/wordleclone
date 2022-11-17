@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Attempt.scss'
+import Box from '../Box'
 
 interface Props {
     input: string,
@@ -8,10 +9,6 @@ interface Props {
     attemptno: number
 }
 
-interface propsBox {
-    char: string,
-    color: string,
-}
 
 const Attempt : React.FC<Props> = ({input,word,currattempt,attemptno}) => {
 
@@ -32,6 +29,11 @@ const Attempt : React.FC<Props> = ({input,word,currattempt,attemptno}) => {
             })
         }
     }
+
+    useEffect(() => {
+        initializeColorCode();
+
+    },[])
 
 
     const colorCode = () => {
@@ -56,36 +58,72 @@ const Attempt : React.FC<Props> = ({input,word,currattempt,attemptno}) => {
         
     }
 
+    // const findcount = (word : string, char_in : string) => {
+    //         let split = word.split('')
+    //         let count = 0
+    //         for(let i = 0; i < split.length; ++i){
+    //             if(word[i] === char_in){
+    //                 count++
+    //             }
+    //         }
+    //         return count
+    // } 
+
+    const findcolor = (input_char : string, index:number ) => {
+
+        let word_index : number[] = []
+        let input_index : number[] = []
+
+        for(let i =0; i<5; ++i){
+
+            if(word[i] === input_char){
+                word_index.push(i)
+            }
+
+            if(input[i] === input_char){
+                input_index.push(i)
+            }
+
+
+
+        }
+        let same_indexes : number[] = word_index.filter((x) => input_index.includes(x))
+        let diff_word_index = word_index.filter((x) => !same_indexes.includes(x))
+        let diff_input_index = input_index.filter((x) => !same_indexes.includes(x))
+
+        
+
+        console.log('diff',input_char,index,diff_word_index,diff_input_index)
+ 
+
+        return 'yellow'
+    }
+
+
+
 
     const evaluate = () => {
 
-        console.log(colorcodes[1].char ,word[1])
-        console.log(input[0].indexOf(input[0]))
         for(let i =0; i<5; ++i){
 
             setColorCodes((prev) =>{
                 let newcolorcodes = prev
+             
+                if(word.split('').includes(input[i]))
+                    newcolorcodes[i].color = findcolor(input[i],i)
+
                 if(word[i] === newcolorcodes[i].char){
                     newcolorcodes[i].color = 'green'
                 }
-                if(newcolorcodes[i].color != 'green' && word.split('').includes(input[i])){
-                    newcolorcodes[i].color = 'yellow'
+                if(!word.split('').includes(input[i])){
+                    newcolorcodes[i].color = 'red'
                 }
                 
                 return newcolorcodes
             })
         }
     }
-    
-    useEffect(() => {
-        // setWordSplit(word.split(''))
-        initializeColorCode();
-
-    },[])
-
-    
-    
-
+ 
     useEffect(() =>{
 
 
@@ -112,11 +150,3 @@ const Attempt : React.FC<Props> = ({input,word,currattempt,attemptno}) => {
 export default Attempt
 
 
-const Box: React.FC<propsBox> = ({char, color='grey'}) =>{
-
-    return(
-        <div className={`char-box ${color}`}>
-                    {char}
-        </div>
-    )
-}

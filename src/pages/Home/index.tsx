@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Attempt from '../../components/Attempt'
+import Navbar from '../../components/Navbar'
 import './Home.scss'
 
 const wordlist = ["FLOAT","CLOCK", "BUILD", "GUILD", "FIELD"]
@@ -79,15 +80,28 @@ const Home: React.FC = () => {
 
   return (
     <div className="home">
-      {word}
-      <div className="wrapper">
 
-        {inputs.map((input,i) => {
-          return(<Attempt key={i} input={input} word={word} currattempt={currattempt} attemptno ={i}/>)
-        })}
 
-        
+      <Navbar/>
+      <div className='main'>
+        <div className='left'>
+
+        </div>
+        {/* {word} */}
+        <div className="wrapper">
+
+          {inputs.map((input,i) => {
+            return(<Attempt key={i} input={input} word={word} currattempt={currattempt} attemptno ={i}/>)
+          })}
+
+          
+        </div>
+        <div className='right'>
+          
+        </div>
+
       </div>
+      
     </div>
   )
 }

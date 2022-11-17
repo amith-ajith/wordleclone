@@ -3,18 +3,23 @@
     flex-direction: row;
 
     .char-box{
-        width: 50px;
-        height: 50px;
-        border: 1px solid white;
-        margin: 10px;
+        width: 60px;
+        height: 60px;
+        // border: 1px solid white;
+        color: black;
+        font-weight: 900;
+        font-size: 20px;
+        margin: 5px;
         display: flex;
         justify-content: center;
         align-items: center;
         text-transform: uppercase;
+        border-radius: 4px;
     }
 
     .char-box.grey{
-        background-color: rgb(180, 180, 180);
+        background-color: transparent;
+        border: 1px solid rgb(83, 83, 83);
     }
     .char-box.yellow{
         background-color: yellow;
@@ -25,4 +30,7 @@
     .char-box.purple{
         background-color: purple;
     }
-}
+    .char-box.red{
+        background-color: rgb(255, 13, 13);
+    }
+}   
