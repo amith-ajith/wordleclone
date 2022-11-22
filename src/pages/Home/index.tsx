@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Attempt from '../../components/Attempt'
 import Navbar from '../../components/Navbar'
 import './Home.scss'
-
+import {GrPowerReset} from 'react-icons/gr'
 const wordlist = ["FLOAT","CLOCK", "BUILD", "GUILD", "FIELD"]
 
 
@@ -15,20 +15,57 @@ const Home: React.FC = () => {
   const [currInput, setCurrInput] = useState('')
   const [currattempt, setAttemptNo] = useState(0)
   const [inputs, setInputs] = useState(['','','','','',''])
-  
-  useEffect(() => {
+  const [winflag,setWinFlag] = useState(false)
+  const [showreset,setShowReset] = useState(false)
+  const [gameend,setGameEnd] = useState(false)
+ 
+
+  const setRandomWord = () =>{
     let randomNo:number = Math.floor(Math.random()*wordlist.length)
     setWord(wordlist[randomNo])
+  }
+  
+  useEffect(() => {
+    setRandomWord()
   },[])
 
-  const onKeyPress= (event: KeyboardEvent) =>{
+  const gamedone = () => {
+
+    setShowReset(true)
+
+
+  }
+
+  const onKeyPress=  useCallback((event: KeyboardEvent) =>{
     event.preventDefault()
+
+    if(winflag || gameend ){
+      return
+    }
+
+    if(currattempt === 6){
+      
+      setGameEnd(true)
+      
+    }
 
     if(currattempt <= 5){
       
-      if(event.code === 'Enter'){
+      if(event.code === 'Enter'){       
+
       
         if(currInput.length === 5){
+          if(word === currInput){
+            
+            gamedone();
+            setWinFlag(true)
+            // setInputs(['','','','','',''])
+            // setRandomWord()
+            // setAttemptNo(0)
+            // setCurrInput('')
+            // return
+            //victory
+          }
           setCurrInput('')
           setAttemptNo(currattempt+1)
         }
@@ -57,13 +94,9 @@ const Home: React.FC = () => {
 
     }
 
-    
-
-    
-
 
      
-  }
+  },[currInput,currattempt,gameend,winflag,word]);
 
   useEffect(() => {
 
@@ -97,6 +130,8 @@ const Home: React.FC = () => {
           
         </div>
         <div className='right'>
+          {showreset?"":<GrPowerReset color='white'/>
+          }
           
         </div>
 
